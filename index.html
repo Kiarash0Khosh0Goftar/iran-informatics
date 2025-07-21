@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایران انفورماتیک - فروشگاه تخصصی کامپیوتر</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- هدر سایت -->
+    <header>
+        <h1>ایران انفورماتیک</h1>
+        <div class="store-info">
+            <p>آدرس: شاهرود-خیابان مزار-چهارراه مدرسه قلعه-ابتدای خیابان آبشار-سمت چپ</p>
+            <p>تلفن: 023-32240518 | فکس: 023-32234859</p>
+            <p>همراه: 09126733263 | 09127735897</p>
+        </div>
+    </header>
+
+    <!-- کنترل‌های جستجو و مرتب‌سازی -->
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="جستجوی محصولات...">
+        <select id="sortSelect">
+            <option value="">مرتب‌سازی</option>
+            <option value="price_asc">ارزان‌ترین</option>
+            <option value="price_desc">گران‌ترین</option>
+        </select>
+    </div>
+
+    <!-- نمایش محصولات -->
+    <div id="productsContainer" class="products-container"></div>
+
+    <!-- بخش لاگین ادمین -->
+    <section class="login-container" id="loginSection">
+        <h2>ورود به پنل مدیریت</h2>
+        <form class="login-form">
+            <div class="form-group">
+                <label for="adminUsername">نام کاربری</label>
+                <input type="text" id="adminUsername" placeholder="نام کاربری ادمین">
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">کلمه عبور</label>
+                <input type="password" id="adminPassword" placeholder="کلمه عبور ادمین">
+            </div>
+            <button type="button" id="loginBtn">ورود به پنل مدیریت</button>
+        </form>
+    </section>
+
+    <!-- پنل مدیریت -->
+    <section class="admin-panel hidden" id="adminPanel">
+        <div class="logout-container">
+            <button id="logoutBtn">خروج از سیستم</button>
+        </div>
+        
+        <div class="admin-header">
+            <h2>پنل مدیریت محصولات</h2>
+            <p>مدیریت و ویرایش کالاهای فروشگاه</p>
+        </div>
+        
+        <div class="admin-container">
+            <!-- فرم افزودن محصول -->
+            <div class="product-form">
+                <h3>افزودن محصول جدید</h3>
+                <div class="form-group">
+                    <label for="productName">نام محصول</label>
+                    <input type="text" id="productName" placeholder="نام محصول را وارد کنید">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">توضیحات محصول</label>
+                    <textarea id="productDescription" placeholder="توضیحات محصول را وارد کنید" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productCategory">دسته‌بندی</label>
+                    <select id="productCategory">
+                        <option value="laptop">لپ‌تاپ</option>
+                        <option value="desktop">کامپیوتر رومیزی</option>
+                        <option value="monitor">مانیتور</option>
+                        <option value="printer">پرینتر</option>
+                        <option value="accessory">لوازم جانبی</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productPrice">قیمت (تومان)</label>
+                    <input type="number" id="productPrice" placeholder="قیمت محصول را وارد کنید">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDiscount">تخفیف (%)</label>
+                    <input type="number" id="productDiscount" placeholder="درصد تخفیف" min="0" max="100" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productImage">تصویر محصول</label>
+                    <input type="file" id="productImage" accept="image/*">
+                    <div class="image-preview" id="imagePreview">
+                        <span>پیش‌نمایش تصویر</span>
+                        <img id="previewImage" src="" alt="پیش‌نمایش تصویر محصول">
+                    </div>
+                </div>
+                
+                <button id="addProductBtn">افزودن محصول</button>
+            </div>
+            
+            <!-- لیست محصولات -->
+            <div class="products-list">
+                <h3>لیست محصولات</h3>
+                <div id="adminProductsList"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>درباره ما</h3>
+                <p>فروشگاه ایران انفورماتیک با بیش از 17 سال سابقه در زمینه فروش محصولات کامپیوتری و تجهیزات جانبی، ارائه دهنده بهترین برندها با گارانتی معتبر و قیمت مناسب</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>تماس با ما</h3>
+                <ul class="contact-info">
+                    <li>آدرس: شاهرود-خیابان مزار-چهارراه مدرسه قلعه-ابتدای خیابان آبشار-سمت چپ</li>
+                    <li>تلفن: 023-32240518</li>
+                    <li>فکس: 023-32234859</li>
+                    <li>همراه: 09126733263</li>
+                    <li>همراه: 09127735897</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>ساعات کاری</h3>
+                <p>شنبه تا پنجشنبه: 9:00 صبح تا 15:00 و 18:30 تا 23:30</p>
+                <p>جمعه: تعطیل</p>
+            </div>
+            
+            <div class="copyright">
+                <p>کلیه حقوق این وب‌سایت متعلق به فروشگاه ایران انفورماتیک می‌باشد © ۱۴۰۳</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
