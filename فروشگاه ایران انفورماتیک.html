@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایران انفورماتیک - فروشگاه تخصصی کامپیوتر</title>
+    <style>
+        :root {
+            --primary-red: #c8102e;
+            --primary-light: #ff4d4d;
+            --primary-dark: #9c0d27;
+            --white: #ffffff;
+            --light-gray: #f9f9f9;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333333;
+            --accent: #ffd700;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+            pointer-events: none;
+        }
+
+        .store-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem auto 0;
+            max-width: 800px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .store-info p {
+            margin: 0.6rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            padding: 1.2rem;
+            background: var(--white);
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--medium-gray);
+        }
+
+        #searchInput {
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--primary-red);
+            border-radius: 6px;
+            width: 300px;
+            margin-left: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.2);
+        }
+
+        #sortSelect {
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--primary-red);
+            border-radius: 6px;
+            background: var(--white);
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--medium-gray);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-red), var(--primary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-image::after {
+            content: "ایران انفورماتیک";
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-price {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin: 0.8rem 0;
+        }
+
+        .product-discount {
+            background: var(--accent);
+            color: var(--dark-gray);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .admin-panel {
+            max-width: 1200px;
+            margin: 2.5rem auto;
+            padding: 1.5rem;
+            background: var(--light-gray);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+        }
+
+        .admin-container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .product-form {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            flex: 1;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .products-list {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            flex: 1;
+            border: 1px solid var(--medium-gray);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .form-group input, 
+        .form-group textarea,
+        .form-group select {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary-red);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.2);
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 150px;
+            background-color: #f0f0f0;
+            border: 2px dashed var(--medium-gray);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none;
+        }
+
+        .image-preview span {
+            color: #777;
+        }
+
+        button {
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.2) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        button:hover::after {
+            transform: translateX(100%);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .admin-product-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--medium-gray);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .admin-product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .admin-product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .admin-product-info {
+            flex-grow: 1;
+        }
+
+        .admin-product-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .admin-product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-edit:hover, .btn-delete:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info i {
+            margin-left: 0.5rem;
+        }
+
+        .copyright {
+            width: 100%;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            #searchInput,
+            #sortSelect {
+                width: 100%;
+                margin-left: 0;
+            }
+            
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                padding: 1rem;
+            }
+            
+            .store-info {
+                padding: 0.8rem;
+            }
+            
+            .admin-container {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        /* استایل‌های جدید برای سیستم احراز هویت */
+        .login-container {
+            max-width: 500px;
+            margin: 2.5rem auto;
+            padding: 2rem;
+            background: var(--light-gray);
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .login-container h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .login-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .logout-container {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+
+        #logoutBtn {
+            background: var(--dark-gray);
+            width: auto;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- هدر سایت -->
+    <header>
+        <h1>ایران انفورماتیک</h1>
+        <div class="store-info">
+            <p>آدرس: شاهرود-خیابان مزار-چهارراه مدرسه قلعه-ابتدای خیابان آبشار-سمت چپ</p>
+            <p>تلفن: 023-32240518 | فکس: 023-32234859</p>
+            <p>همراه: 09126733263 | 09127735897</p>
+        </div>
+    </header>
+
+    <!-- کنترل‌های جستجو و مرتب‌سازی -->
+    <div class="controls">
+        <input type="text" id="searchInput" placeholder="جستجوی محصولات...">
+        <select id="sortSelect">
+            <option value="">مرتب‌سازی</option>
+            <option value="price_asc">ارزان‌ترین</option>
+            <option value="price_desc">گران‌ترین</option>
+        </select>
+    </div>
+
+    <!-- نمایش محصولات -->
+    <div id="productsContainer" class="products-container">
+        <!-- محصولات توسط جاوااسکریپت ایجاد می‌شوند -->
+    </div>
+
+    <!-- بخش لاگین ادمین -->
+    <section class="login-container" id="loginSection">
+        <h2>ورود به پنل مدیریت</h2>
+        <form class="login-form">
+            <div class="form-group">
+                <label for="adminUsername">نام کاربری</label>
+                <input type="text" id="adminUsername" placeholder="نام کاربری ادمین">
+            </div>
+            <div class="form-group">
+                <label for="adminPassword">کلمه عبور</label>
+                <input type="password" id="adminPassword" placeholder="کلمه عبور ادمین">
+            </div>
+            <button type="button" id="loginBtn">ورود به پنل مدیریت</button>
+        </form>
+    </section>
+
+    <!-- پنل مدیریت -->
+    <section class="admin-panel hidden" id="adminPanel">
+        <div class="logout-container">
+            <button id="logoutBtn">خروج از سیستم</button>
+        </div>
+        
+        <div class="admin-header">
+            <h2>پنل مدیریت محصولات</h2>
+            <p>مدیریت و ویرایش کالاهای فروشگاه</p>
+        </div>
+        
+        <div class="admin-container">
+            <!-- فرم افزودن محصول -->
+            <div class="product-form">
+                <h3>افزودن محصول جدید</h3>
+                <div class="form-group">
+                    <label for="productName">نام محصول</label>
+                    <input type="text" id="productName" placeholder="نام محصول را وارد کنید">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDescription">توضیحات محصول</label>
+                    <textarea id="productDescription" placeholder="توضیحات محصول را وارد کنید" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productCategory">دسته‌بندی</label>
+                    <select id="productCategory">
+                        <option value="laptop">لپ‌تاپ</option>
+                        <option value="desktop">کامپیوتر رومیزی</option>
+                        <option value="monitor">مانیتور</option>
+                        <option value="printer">پرینتر</option>
+                        <option value="accessory">لوازم جانبی</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="productPrice">قیمت (تومان)</label>
+                    <input type="number" id="productPrice" placeholder="قیمت محصول را وارد کنید">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productDiscount">تخفیف (%)</label>
+                    <input type="number" id="productDiscount" placeholder="درصد تخفیف" min="0" max="100" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="productImage">تصویر محصول</label>
+                    <input type="file" id="productImage" accept="image/*">
+                    <div class="image-preview" id="imagePreview">
+                        <span>پیش‌نمایش تصویر</span>
+                        <img id="previewImage" src="" alt="پیش‌نمایش تصویر محصول">
+                    </div>
+                </div>
+                
+                <button id="addProductBtn">افزودن محصول</button>
+            </div>
+            
+            <!-- لیست محصولات -->
+            <div class="products-list">
+                <h3>لیست محصولات</h3>
+                <div id="adminProductsList">
+                    <!-- محصولات توسط جاوااسکریپت ایجاد می‌شوند -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>درباره ما</h3>
+                <p>فروشگاه ایران انفورماتیک با بیش از 17 سال سابقه در زمینه فروش محصولات کامپیوتری و تجهیزات جانبی، ارائه دهنده بهترین برندها با گارانتی معتبر و قیمت مناسب</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>تماس با ما</h3>
+                <ul class="contact-info">
+                    <li>آدرس: شاهرود-خیابان مزار-چهارراه مدرسه قلعه-ابتدای خیابان آبشار-سمت چپ</li>
+                    <li>تلفن: 023-32240518</li>
+                    <li>فکس: 023-32234859</li>
+                    <li>همراه: 09126733263</li>
+                    <li>همراه: 09127735897</li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>ساعات کاری</h3>
+                <p>شنبه تا پنجشنبه: 9:00 صبح تا 15:00 و 18:30 تا 23:30</p>
+                <p>جمعه: تعطیل</p>
+            </div>
+            
+            <div class="copyright">
+                <p>کلیه حقوق این وب‌سایت متعلق به فروشگاه ایران انفورماتیک می‌باشد © ۱۴۰۳</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // سیستم احراز هویت
+        class AuthManager {
+            static isAdminLoggedIn() {
+                return sessionStorage.getItem('isAdminLoggedIn') === 'true';
+            }
+            
+            static login(username, password) {
+                const validUsername = 'kiarash';
+                const validPassword = 'kia';
+                
+                if (username === validUsername && password === validPassword) {
+                    sessionStorage.setItem('isAdminLoggedIn', 'true');
+                    return true;
+                }
+                return false;
+            }
+            
+            static logout() {
+                sessionStorage.removeItem('isAdminLoggedIn');
+            }
+        }
+
+        // مدیریت محصولات
+        class ProductManager {
+            constructor() {
+                this.products = JSON.parse(localStorage.getItem('iranInformaticsProducts')) || [];
+                this.currentProductId = null;
+                this.init();
+            }
+            
+            init() {
+                this.renderProducts();
+                this.toggleAdminPanel();
+                this.setupEventListeners();
+            }
+            
+            // افزودن محصول جدید
+            addProduct(product) {
+                this.products.push(product);
+                this.saveProducts();
+                this.renderProducts();
+                this.renderAdminProducts();
+            }
+            
+            // ویرایش محصول
+            editProduct(id, updatedProduct) {
+                const index = this.products.findIndex(p => p.id === id);
+                if (index !== -1) {
+                    this.products[index] = {...this.products[index], ...updatedProduct};
+                    this.saveProducts();
+                    this.renderProducts();
+                    this.renderAdminProducts();
+                }
+            }
+            
+            // حذف محصول
+            deleteProduct(id) {
+                this.products = this.products.filter(p => p.id !== id);
+                this.saveProducts();
+                this.renderProducts();
+                this.renderAdminProducts();
+            }
+            
+            // ذخیره محصولات در localStorage
+            saveProducts() {
+                localStorage.setItem('iranInformaticsProducts', JSON.stringify(this.products));
+            }
+            
+            // نمایش محصولات برای مشتریان
+            renderProducts() {
+                const productsContainer = document.getElementById('productsContainer');
+                productsContainer.innerHTML = '';
+                
+                this.products.forEach(product => {
+                    const finalPrice = product.price * (1 - product.discount / 100);
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <div class="product-price">
+                                ${finalPrice.toLocaleString()} تومان
+                                ${product.discount > 0 ? 
+                                    `<span class="product-discount">
+                                        (${product.discount}% تخفیف)
+                                    </span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsContainer.appendChild(productCard);
+                });
+            }
+            
+            // نمایش محصولات در پنل مدیریت
+            renderAdminProducts() {
+                const adminList = document.getElementById('adminProductsList');
+                adminList.innerHTML = '';
+                
+                this.products.forEach(product => {
+                    const adminItem = document.createElement('div');
+                    adminItem.className = 'admin-product-item';
+                    adminItem.innerHTML = `
+                        <div class="admin-product-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="admin-product-info">
+                            <h4>${product.name}</h4>
+                            <p>قیمت: ${product.price.toLocaleString()} تومان</p>
+                            <p>تخفیف: ${product.discount}%</p>
+                        </div>
+                        <div class="admin-product-actions">
+                            <button class="btn-edit" data-id="${product.id}">ویرایش</button>
+                            <button class="btn-delete" data-id="${product.id}">حذف</button>
+                        </div>
+                    `;
+                    
+                    adminList.appendChild(adminItem);
+                });
+                
+                // افزودن رویداد برای دکمه‌های ویرایش و حذف
+                document.querySelectorAll('.btn-edit').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.dataset.id);
+                        this.prepareEditForm(id);
+                    });
+                });
+                
+                document.querySelectorAll('.btn-delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = parseInt(e.target.dataset.id);
+                        if (confirm('آیا از حذف این محصول مطمئن هستید؟')) {
+                            this.deleteProduct(id);
+                        }
+                    });
+                });
+            }
+            
+            // آماده‌سازی فرم برای ویرایش
+            prepareEditForm(id) {
+                const product = this.products.find(p => p.id === id);
+                if (product) {
+                    this.currentProductId = id;
+                    
+                    document.getElementById('productName').value = product.name;
+                    document.getElementById('productDescription').value = product.description;
+                    document.getElementById('productCategory').value = product.category;
+                    document.getElementById('productPrice').value = product.price;
+                    document.getElementById('productDiscount').value = product.discount;
+                    
+                    // نمایش تصویر فعلی
+                    const previewImage = document.getElementById('previewImage');
+                    previewImage.src = product.image;
+                    previewImage.style.display = 'block';
+                    document.querySelector('#imagePreview span').style.display = 'none';
+                    
+                    // تغییر متن دکمه
+                    document.getElementById('addProductBtn').textContent = 'ذخیره تغییرات';
+                }
+            }
+            
+            // تنظیم رویدادها
+            setupEventListeners() {
+                // رویداد آپلود تصویر
+                document.getElementById('productImage').addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const previewImage = document.getElementById('previewImage');
+                            previewImage.src = event.target.result;
+                            previewImage.style.display = 'block';
+                            document.querySelector('#imagePreview span').style.display = 'none';
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+                
+                // رویداد افزودن/ویرایش محصول
+                document.getElementById('addProductBtn').addEventListener('click', () => {
+                    const name = document.getElementById('productName').value;
+                    const description = document.getElementById('productDescription').value;
+                    const category = document.getElementById('productCategory').value;
+                    const price = parseFloat(document.getElementById('productPrice').value);
+                    const discount = parseInt(document.getElementById('productDiscount').value) || 0;
+                    const previewImage = document.getElementById('previewImage').src;
+                    
+                    if (!name || !price || previewImage.includes('data:image') === false) {
+                        alert('لطفاً نام، قیمت و تصویر محصول را وارد کنید');
+                        return;
+                    }
+                    
+                    const productData = {
+                        id: this.currentProductId || Date.now(),
+                        name,
+                        description,
+                        category,
+                        price,
+                        discount,
+                        image: previewImage
+                    };
+                    
+                    if (this.currentProductId) {
+                        this.editProduct(this.currentProductId, productData);
+                        this.currentProductId = null;
+                        document.getElementById('addProductBtn').textContent = 'افزودن محصول';
+                    } else {
+                        this.addProduct(productData);
+                    }
+                    
+                    // ریست فرم
+                    document.getElementById('productName').value = '';
+                    document.getElementById('productDescription').value = '';
+                    document.getElementById('productPrice').value = '';
+                    document.getElementById('productDiscount').value = '0';
+                    document.getElementById('productImage').value = '';
+                    document.getElementById('previewImage').src = '';
+                    document.getElementById('previewImage').style.display = 'none';
+                    document.querySelector('#imagePreview span').style.display = 'block';
+                });
+                
+                // جستجوی محصولات
+                document.getElementById('searchInput').addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const filteredProducts = this.products.filter(product => 
+                        product.name.toLowerCase().includes(searchTerm) || 
+                        product.description.toLowerCase().includes(searchTerm)
+                    );
+                    this.renderFilteredProducts(filteredProducts);
+                });
+                
+                // مرتب‌سازی محصولات
+                document.getElementById('sortSelect').addEventListener('change', (e) => {
+                    const sortValue = e.target.value;
+                    let sortedProducts = [...this.products];
+                    
+                    if (sortValue === 'price_asc') {
+                        sortedProducts.sort((a, b) => 
+                            (a.price * (1 - a.discount/100)) - (b.price * (1 - b.discount/100))
+                        );
+                    } else if (sortValue === 'price_desc') {
+                        sortedProducts.sort((a, b) => 
+                            (b.price * (1 - b.discount/100)) - (a.price * (1 - a.discount/100))
+                        );
+                    }
+                    
+                    this.renderFilteredProducts(sortedProducts);
+                });
+            }
+            
+            // نمایش محصولات فیلتر شده
+            renderFilteredProducts(products) {
+                const productsContainer = document.getElementById('productsContainer');
+                productsContainer.innerHTML = '';
+                
+                products.forEach(product => {
+                    const finalPrice = product.price * (1 - product.discount / 100);
+                    
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p>${product.description}</p>
+                            <div class="product-price">
+                                ${finalPrice.toLocaleString()} تومان
+                                ${product.discount > 0 ? 
+                                    `<span class="product-discount">
+                                        (${product.discount}% تخفیف)
+                                    </span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsContainer.appendChild(productCard);
+                });
+            }
+            
+            // نمایش/مخفی کردن پنل مدیریت
+            toggleAdminPanel() {
+                const loginSection = document.getElementById('loginSection');
+                const adminPanel = document.getElementById('adminPanel');
+                
+                if (AuthManager.isAdminLoggedIn()) {
+                    loginSection.classList.add('hidden');
+                    adminPanel.classList.remove('hidden');
+                    this.renderAdminProducts();
+                } else {
+                    loginSection.classList.remove('hidden');
+                    adminPanel.classList.add('hidden');
+                }
+            }
+        }
+
+        // راه‌اندازی سیستم
+        document.addEventListener('DOMContentLoaded', () => {
+            const productManager = new ProductManager();
+            
+            // مدیریت رویدادهای لاگین
+            document.getElementById('loginBtn').addEventListener('click', () => {
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (AuthManager.login(username, password)) {
+                    productManager.toggleAdminPanel();
+                } else {
+                    alert('نام کاربری یا کلمه عبور اشتباه است');
+                }
+            });
+            
+            // مدیریت رویداد خروج
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                AuthManager.logout();
+                productManager.toggleAdminPanel();
+                // پاک کردن فیلدهای فرم
+                document.getElementById('adminUsername').value = '';
+                document.getElementById('adminPassword').value = '';
+            });
+            
+            // افزودن چند محصول نمونه
+            if (productManager.products.length === 0) {
+                const sampleProducts = [
+                    {
+                        id: 1,
+                        name: "لپ‌تاپ ایسوس ROG Strix",
+                        description: "لپ‌تاپ گیمینگ با پردازنده Core i7 نسل 12، رم 16GB، گرافیک RTX 3060",
+                        category: "laptop",
+                        price: 42000000,
+                        discount: 10,
+                        image: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                    },
+                    {
+                        id: 2,
+                        name: "کامپیوتر رومیزی گیمینگ",
+                        description: "سیستم گیمینگ با پردازنده Core i5 نسل 13، رم 32GB، گرافیک RTX 4070",
+                        category: "desktop",
+                        price: 55000000,
+                        discount: 5,
+                        image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                    },
+                    {
+                        id: 3,
+                        name: "مانیتور سامسونگ 27 اینچ",
+                        description: "مانیتور حرفه‌ای 27 اینچ با رزولوشن 4K و نرخ تازه‌سازی 144Hz",
+                        category: "monitor",
+                        price: 12500000,
+                        discount: 15,
+                        image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80"
+                    }
+                ];
+                
+                sampleProducts.forEach(product => {
+                    productManager.addProduct(product);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
